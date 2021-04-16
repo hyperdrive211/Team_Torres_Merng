@@ -5,28 +5,48 @@ type Lesson {
     id: ID!
     lessonName: String!
     lessonType: String!
-    lessonVidLink: String! 
+    lessonVidLink: String!
+
 }   
-type Instructor{
+type User {
     id: ID!
     username: String!
     token: String!
-    fullName: String!
+    userType: String
+}
+type Instructor{
+    id: ID!
+    username: String!
+    fullname: String!
+
 }
 type Member{
     id: ID! 
     username: String!
     fullName: String!
-    token: String! 
+    joinedAt: String!
+    membershipType: String!
+    bjjRank: String!
+
 }
 type Class{
-   if: ID!
+   id: ID!
    className: String!
    classDate: String!
    classType: String!
    classLevel: String! 
 }
+input RegisterUser {
+    username: String!
+    password: String!
+    confirmPassword: String!
+    email:String!
+    userType: String
+}
 type Query{
     getLessons: [Lesson]
+}
+type Mutation{
+    register(registerUser: RegisterUser): User
 }
 `; 

@@ -1,4 +1,4 @@
-const Lesson  = require('../../models/lesson'); 
+const Lesson  = require('../../models/Lesson'); 
 
 module.exports = {
     Query: {
@@ -10,5 +10,5 @@ module.exports = {
                 throw new Error(err)
             }
         } 
-    }
+    }, 
 }

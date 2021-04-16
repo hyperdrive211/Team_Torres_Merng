@@ -6,7 +6,8 @@ const instructorSchema = new Schema({
     email: String, 
     imageUrl: String, 
     martialArt: String, 
-    rank: String
+    rank: String,
+    createdAt: String
 }); 
 
 module.exports = model('Instructor', instructorSchema); 
