@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {SECRET_KEY} = require('../../config');
 const {UserInputError} = require('apollo-server'); 
+const {validateUserRegistration} = require('../../Util/validators'); 
 
 module.exports = {
     Mutation: {
@@ -12,13 +13,20 @@ module.exports = {
         {
             registerUser: { username, email, password, confirmPassword, userType}
         }, 
-        context,
-         info){
+        ){
             //validate data with server validation 
+            const {valid, errors} = validateUserRegistration(username, email, password, confirmPassword); 
+            if(!valid){
+                throw new UserInputError('Errors', {errors}); 
+            }
             //usernames are unique
             const user = await User.findOne({username}); 
             if(user){
-                throw 
+                throw new UserInputError('Username is already taken', {
+                    errors: {
+                        username: 'This username is taken'
+                    }
+                }) 
             }
             //hash password before password storaged
             password = await bcrypt.hash(password, 12); 
