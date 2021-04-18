@@ -1,14 +1,50 @@
 const User = require('../../models/User'); 
-const Member = require('../../models/Member'); 
-const Instructor = require('../../models/Instructor'); 
 const bcrypt = require('bcryptjs'); 
 const jwt = require('jsonwebtoken');
 const {SECRET_KEY} = require('../../config');
 const {UserInputError} = require('apollo-server'); 
-const {validateUserRegistration} = require('../../Util/validators'); 
+const {validateUserRegistration, validateUserLogin} = require('../../Util/validators'); 
+
+generateToken = (user) => {
+     return jwt.sign({
+         id: user.id, 
+         email: user.email, 
+         username: user.username
+     }, SECRET_KEY, {expiresIn: '3h'});    
+}
+
+getUserInfoByType = () => {
+
+}
 
 module.exports = {
     Mutation: {
+           login : async (_, {username, password}) => {
+           const {errors, valid} = validateUserLogin(username, password); 
+           
+           if(!valid){
+              throw new UserInputError("Errors", {errors}); 
+           }
+           const user = await User.findOne({username}); 
+
+           if(!user){
+               errors.general = 'User not found'; 
+               throw new UserInputError('User not found', {errors}); 
+           }
+           const match = await bcrypt.compare(password, user.password); 
+           if(!match){
+               errors.general = "Wrong credentials"; 
+               throw new UserIinputError("Wrong credentials", {errors}); 
+           }
+           
+           const token = generateToken(user); 
+
+           return {
+               ...user._doc, 
+               id: user._id,
+               token
+           }
+       }, 
        async register(_, 
         {
             registerUser: { username, email, password, confirmPassword, userType}
@@ -36,11 +72,7 @@ module.exports = {
 
             const res = await newUser.save(); 
             //generate the auth token 
-             const token =  jwt.sign({
-                 id: res.id, 
-                 email: res.email, 
-                 username: res.username
-             }, SECRET_KEY, {expiresIn: '1h'}); 
+             const token =  generateToken(res); 
 
              return {
                  ...res._doc, 

@@ -47,6 +47,9 @@ type Query{
     getLessons: [Lesson]
 }
 type Mutation{
-    register(registerUser: RegisterUser): User
+    register(registerUser: RegisterUser): User!
+    login(username: String!, password: String!):User!
+    createLesson(lessonName: String!, lessonType:String!, lessonVidLink:String!):Lesson!
+    deleteLesson(lessonId: String!): String!
 }
 `; 

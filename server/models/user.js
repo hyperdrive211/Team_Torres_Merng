@@ -6,6 +6,10 @@ const userSchema = new Schema({
     password: String, 
     userType: String, 
     createdAt: String, 
+    rank: String, 
+    isMember: Boolean, 
+    membershipPackage: String, 
+    paymentType: String, 
 }); 
 
 
