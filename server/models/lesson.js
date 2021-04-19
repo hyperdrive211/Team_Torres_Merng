@@ -4,8 +4,11 @@ const lessonSchema = new Schema({
     lessonName: String, 
     lessonType: String, 
     lessonVidLink: String, 
+    createdBy: {
+        type: Schema.Types.ObjectId, 
+        ref: 'users'
+    },
     createdAt: String, 
-    createdBy: String, 
     lessonDescription: String, 
     comments: [
         {
@@ -19,9 +22,7 @@ const lessonSchema = new Schema({
             username: String, 
             likedAt:String
         }
-    ]
-      
-    
+    ]    
 }); 
 
 module.exports = model('Lesson', lessonSchema); 

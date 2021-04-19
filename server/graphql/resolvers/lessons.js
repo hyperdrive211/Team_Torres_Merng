@@ -1,4 +1,5 @@
 const Lesson  = require('../../models/Lesson'); 
+const checkAuth = require('../../Util/auth'); 
 
 module.exports = {
     Query: {
@@ -9,8 +10,7 @@ module.exports = {
             } catch(err) {
                 throw new Error(err)
             }
-        } 
-    }, 
+        },   
     getLesson: async (_, {lessonId}) => {
         try {
             const lesson = await Lesson.findById(lessonId); 
@@ -21,6 +21,26 @@ module.exports = {
             }
         } catch(err){
             throw new Error(err); 
+        }
+    }
+    },
+    Mutation: {
+        createLesson: async (_, {lessonName, lessonType, lessonDescription, lessonVidLink}, context) => {
+            const user = checkAuth(context); 
+             
+             console.log(user); 
+            const newLesson = new Lesson({
+                lessonName, 
+                lessonType, 
+                lessonVidLink, 
+                lessonDescription, 
+                createdBy: user.username, 
+                createdAt: new Date().toISOString()
+            }); 
+
+            const lesson = await newLesson.save(); 
+
+            return lesson; 
         }
     }
 }
