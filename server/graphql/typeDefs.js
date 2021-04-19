@@ -14,8 +14,8 @@ type Lesson {
 } 
 type Comment{
   id: ID!
-  createdBy: String
-  body: String!
+  createdBy: String!
+  content: String!
   createdAt: String!
 }
 

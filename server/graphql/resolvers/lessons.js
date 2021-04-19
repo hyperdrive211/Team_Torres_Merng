@@ -27,8 +27,6 @@ module.exports = {
     Mutation: {
         createLesson: async (_, {lessonName, lessonType, lessonDescription, lessonVidLink}, context) => {
             const user = checkAuth(context); 
-             
-             console.log(user); 
             const newLesson = new Lesson({
                 lessonName, 
                 lessonType, 
