@@ -14,38 +14,24 @@ type Lesson {
 } 
 type Comment{
   id: ID!
-  createdBy: String!
   content: String!
   createdAt: String!
+  username: String!
 }
 
 type Like{
     id: ID!
-    createdAt: String!
     username: String! 
-
+    likedAt: String!
 }
+
 type User {
     id: ID!
     username: String!
     token: String!
     userType: String
 }
-type Instructor{
-    id: ID!
-    username: String!
-    fullname: String!
 
-}
-type Member{
-    id: ID! 
-    username: String!
-    fullName: String!
-    joinedAt: String!
-    membershipType: String!
-    bjjRank: String!
-
-}
 type Class{
    id: ID!
    className: String!
@@ -69,8 +55,8 @@ type Mutation{
     login(username: String!, password: String!):User!
     createLesson(lessonName: String!, lessonType:String!, lessonVidLink:String!):Lesson!
     deleteLesson(lessonId: String): String!
-    createComment(lessonId: String!, body:String!):Lesson!
-    deleteComment(lessonId: String!):String!
+    createComment(lessonId: String! content:String!):Lesson!
+    deleteComment(lessonId: String! commentId: String!):Lesson!
     likeLesson(lessonId:ID!): Lesson! 
 }
 `; 
