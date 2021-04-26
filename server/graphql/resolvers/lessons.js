@@ -38,6 +38,9 @@ module.exports = {
             }); 
 
             const lesson = await newLesson.save(); 
+            context.pubsub.publish("NEW_LESSON", {
+                lesson: lesson
+            }); 
             return lesson; 
         }, 
 
@@ -57,6 +60,13 @@ module.exports = {
                 await lesson.save(); 
                 return lesson; 
             } else throw new UserInputError("Lesson not found")
+        }
+    }, 
+    Subscription : {
+        newLesson: {
+            subscribe : (_, __, {pubsub}) => {
+                pubsub.asyncIterator("NEW_LESSON"); 
+            }
         }
     }
 }

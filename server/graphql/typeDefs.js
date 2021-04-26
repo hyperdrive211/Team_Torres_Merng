@@ -10,8 +10,11 @@ type Lesson {
     createdAt: String!
     comments: [Comment]!
     likes: [Like]!
-
+    likeCount: Int!
+    commentCount: Int!
 } 
+
+
 type Comment{
   id: ID!
   content: String!
@@ -58,5 +61,9 @@ type Mutation{
     createComment(lessonId: String! content:String!):Lesson!
     deleteComment(lessonId: String! commentId: String!):Lesson!
     likeLesson(lessonId:ID!): Lesson! 
+}
+
+type Subscription{
+    newLesson: Lesson!
 }
 `; 

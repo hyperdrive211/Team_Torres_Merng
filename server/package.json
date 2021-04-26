@@ -4,7 +4,8 @@
     "description": "media content app, inspired by the companies recent decision to deploy a website with videos content",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon index"
     },
     "author": "JohnnyMcCauley",
     "license": "ISC",

@@ -4,6 +4,12 @@ const commentsResolvers = require('./comments');
 
 
 module.exports = {
+    Lesson: {
+      likeCount: (parent) => parent.likes.length, 
+      commentCount: (parent) => parent.comments.length
+
+    
+    }, 
     Query: {
         ...lessonsResolvers.Query,
     }, 
@@ -11,5 +17,8 @@ module.exports = {
        ...usersResolvers.Mutation,
        ...lessonsResolvers.Mutation,
        ...commentsResolvers.Mutation
+    },
+    Subscription: {
+        ...lessonsResolvers.Subscription
     }
 }
