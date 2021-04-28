@@ -6,6 +6,7 @@ type Lesson {
     lessonName: String!
     lessonType: String!
     lessonVidLink: String!
+    lessonDescription: String
     createdBy: String!
     createdAt: String!
     comments: [Comment]!
