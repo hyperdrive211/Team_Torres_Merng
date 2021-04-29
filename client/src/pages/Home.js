@@ -1,15 +1,14 @@
 import React from 'react';  
-import {gql, useQuery} from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import {Grid} from 'semantic-ui-react'
 import LessonPanel from '../components/LessonPanel'; 
+import QueryStatements from '../GraphQl/QueryStatements';
 
 function Home(){
-    const {loading, data} = useQuery(FETCH_LESSONS_QUERY); 
-    console.log(data); 
-
+    const {loading, data} = useQuery(QueryStatements.FETCH_LESSONS); 
     return (
         <Grid columns={3}>
-         <Grid.Row>
+         <Grid.Row className = 'page-title'>
              <h1>Lesson Content</h1>
          </Grid.Row>
          <Grid.Row>
@@ -28,28 +27,5 @@ function Home(){
         </Grid>
     ); 
 }
-
-const FETCH_LESSONS_QUERY = gql`
-   query{
-  getLessons{
-    id
-    createdAt
-    lessonName
-    lessonType
-    lessonVidLink
-    createdBy
-    commentCount
-    likeCount
-    comments{
-      id
-      content
-      username
-    }
-    likes {
-      username
-    }
-  }
-}
-`
 
 export default Home; 

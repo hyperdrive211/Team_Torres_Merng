@@ -18,6 +18,10 @@ function LessonPanel(props){
        createdAt
    } = props.lesson; 
 
+   const likeLesson = () => {
+       console.log('Lesson has been liked'); 
+   }
+
     return(
         <Card>
             <Image src={imageSrc} />
@@ -31,12 +35,13 @@ function LessonPanel(props){
                   <Card.Description>{lessonDescription}</Card.Description>
             </Card.Content>
             <Card.Content extra>
-               <a>
+                <div className="button-container">
+               <Button>
                    <Icon name='comment outline'/>
-                   {commentCount} Comments
-               </a>
+                   {commentCount} {commentCount !== 1 ? "Comments" : "Comment"}
+            </Button>
                <Button as='div' labelPosition='right'>
-                   <Button>
+                   <Button onClick= {likeLesson}>
                        <Icon name='heart'/>
                        Like
                    </Button>
@@ -44,6 +49,7 @@ function LessonPanel(props){
                      {likeCount}
                 </Label>
                </Button>
+               </div>
             </Card.Content>
         </Card>
     ); 
