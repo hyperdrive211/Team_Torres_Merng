@@ -21,6 +21,18 @@ userType
 }
 }
 `, 
+LOGIN: gql`
+mutation login($username: String! $password: String!)
+{
+    login(username: $username password:$password){
+        id
+        username
+        userType
+        token
+    }
+}
+`,  
 }
 
 export default Mutations; 
+ 

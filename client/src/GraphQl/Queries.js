@@ -1,6 +1,6 @@
 import {gql} from '@apollo/client'; 
 
-const QueryStatements = {
+const Queries = {
     FETCH_LESSONS : gql`
    query{
   getLessons{
@@ -25,6 +25,9 @@ const QueryStatements = {
 }
 
 
-export default QueryStatements; 
+export default Queries; 
+
+
+
 
 

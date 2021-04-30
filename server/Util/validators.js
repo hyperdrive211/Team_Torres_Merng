@@ -38,7 +38,7 @@ module.exports.validateUserLogin = (username, password) => {
     }
 
     return {
+        valid: Object.keys(errors).length < 1,
         errors, 
-        valid: Object.keys(errors).length < 1
     }
 }

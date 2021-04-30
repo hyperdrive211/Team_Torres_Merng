@@ -20,8 +20,9 @@ getUserInfoByType = () => {
 module.exports = {
     Mutation: {
            login : async (_, {username, password}) => {
-           const {errors, valid} = validateUserLogin(username, password); 
-           
+           const {valid, errors} = validateUserLogin(username, password); 
+           console.log(errors)
+           console.log(valid); 
            if(!valid){
               throw new UserInputError("Errors", {errors}); 
            }

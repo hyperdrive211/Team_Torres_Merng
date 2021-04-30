@@ -4,7 +4,6 @@ import moment from 'moment';
 
 function LessonPanel(props){
    const imageSrc = "https://www.derrydaily.net/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-14.09.25.png"
-   console.log(props); 
    const {
        lessonName, 
        lessonDescription, 
