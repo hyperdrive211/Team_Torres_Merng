@@ -11,6 +11,7 @@ import AuthRouteUser from './util/authRouteUser';
 
 import Home from './pages/Home'; 
 import Login from './pages/Login'; 
+import Content from './pages/Content'
 import Register from './pages/Register'; 
 import MenuBar from './components/MenuBar'; 
 import LessonForm from './components/LessonForm'; 
@@ -23,8 +24,9 @@ function App() {
       <MenuBar /> 
       <Route exact path='/' component={Home}/>
       <AuthRoute exact path='/login' component={Login} /> 
-      <AuthRoute exact path='/register' component={Register}/> 
-      <AuthRouteUser exact path='/content' component={LessonForm}/> 
+      <AuthRoute exact path='/register' component={Register}/>
+      <AuthRouteUser exact path='/AddContent' component={LessonForm}/> 
+      <AuthRouteUser exact path='/content' component={Content} /> 
       </Container>
     </Router>
     </AuthProvider>

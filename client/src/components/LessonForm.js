@@ -1,4 +1,5 @@
 import React, {useContext} from 'react'; 
+import {useMutation} from '@apollo/client'; 
 import {Form, Button} from 'semantic-ui-react'; 
 
 import {useForm} from '../util/hooks'; 
@@ -41,10 +42,13 @@ function LessonForm(){
               placeholder = 'Lesson description'
               >
               </Form.TextArea>
-              <Form.Input type='file' 
+              <Form.Input type='file' id='content-image'
               label='Content Image'
               placeholder='Content Image...'
               ></Form.Input>
+              <label for='content-image'>
+                  
+              </label>
               <Form.Input
               label='Youtube URL'
               placeholder='YouTube url...'
