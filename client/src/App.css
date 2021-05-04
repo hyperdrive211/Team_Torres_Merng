@@ -13,3 +13,32 @@
 .button-container {
     display: flex;
 }
+
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, .9)), url('./img/backgroundImage.jpg');
+    height: 80vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-header {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    border: solid 1px #fff;
+    width: 60%;
+    padding: 2rem 3rem;
+}
+
+.hero-header h1 {
+    font-size: 55px;
+}
+
+.hero-header h3 {
+    font-size: 30px;
+}

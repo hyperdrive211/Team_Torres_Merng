@@ -1,11 +1,36 @@
 import React, {useContext} from 'react'; 
 import {useMutation} from '@apollo/client'; 
-import {Form, Button} from 'semantic-ui-react'; 
+import {Form, Button, Dropdown} from 'semantic-ui-react'; 
+import {AuthContext} from '../context/auth';
+import Mutations from '../GraphQl/Mutations'; 
 
 import {useForm} from '../util/hooks'; 
 
 function LessonForm(){
-    const {onSubmit, onChange, values} = useForm(); 
+    const user = useContext(AuthContext); 
+
+    const {onSubmit, onChange, values} = useForm(addNewLesson, {
+        lessonName: '',
+        lessonType: '', 
+        lessonDescription: '', 
+        lessonVidLink: ''
+    }); 
+
+    const [addLesson, {loading}] = useMutation(Mutations.ADD_LESSON, {
+        update(_, __){
+            props.history.push('/content'); 
+        },
+        onError(err){
+            console.log(err.graphQLErrors[0].extensions.exception.errors);
+            setErrors(err.graphQLErrors[0].extensions.exception.errors);
+        }, 
+        variables:{
+              lessonName: values.lessonName, 
+              lessonType: lessonType, 
+              lessonDescription: values.lessonDescription, 
+              lessonVidLink: values.lessonVidLink
+        }
+    }); 
     const options = [
      {key: 'bjj', text: 'BJJ', value: 'bjj'}, 
      {key: 'judo', text: 'Judo', value: 'judo'}, 
@@ -14,8 +39,15 @@ function LessonForm(){
      {key: 'wrestling', text:'Wrestling', value: 'wrestling' }, 
      {key: 'mma', text: 'MMA', value:'mma'},
     ]
+
+    function addNewLesson(){
+        addLesson(); 
+    }
         
-    
+    function somethingHappen(e){
+        values.lessonType = e.target.innerText; 
+        console.log(values.lessonType); 
+    }
     return (
         <div className='form-container'>
       <Form onSubmit={onSubmit}>
@@ -25,33 +57,34 @@ function LessonForm(){
               label='Lesson Name'
               placeholder='Lesson name...'
               onChange={onChange}
-              name = 'Lesson Name'
+              name = 'lessonName'
               value = {values.lessonName}
               >
               </Form.Input>
-              <Form.Dropdown
+              <Dropdown
               label='Lesson Type'
               placeholder='Lesson type...'
               fluid
               selection
               options = {options}
+              id='lessonType'
+              onChange={somethingHappen}
               >
-              </Form.Dropdown>
+              </Dropdown>
               <Form.TextArea
               label='Lesson Description'
               placeholder = 'Lesson description'
+              name = 'lessonDescription'
+              onChange={onChange}
+              value={values.lessonDescription}
               >
               </Form.TextArea>
-              <Form.Input type='file' id='content-image'
-              label='Content Image'
-              placeholder='Content Image...'
-              ></Form.Input>
-              <label for='content-image'>
-                  
-              </label>
               <Form.Input
               label='Youtube URL'
               placeholder='YouTube url...'
+              name = 'lessonVidLink'
+              value = {values.lessonVidLink}
+              onChange={onChange}
               >
               </Form.Input>
               <Button type='submit' primary>

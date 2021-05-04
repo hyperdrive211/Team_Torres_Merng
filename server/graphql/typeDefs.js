@@ -57,7 +57,7 @@ type Query{
 type Mutation{
     register(registerUser: RegisterUser): User!
     login(username: String!, password: String!):User!
-    createLesson(lessonName: String!, lessonType:String!, lessonVidLink:String!):Lesson!
+    createLesson(lessonName: String!, lessonType:String!, lessonDescription:String!, lessonVidLink:String!):Lesson!
     deleteLesson(lessonId: String): String!
     createComment(lessonId: String! content:String!):Lesson!
     deleteComment(lessonId: String! commentId: String!):Lesson!

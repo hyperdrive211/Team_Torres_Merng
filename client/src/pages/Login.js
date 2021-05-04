@@ -42,7 +42,7 @@ return (
           <Form.Input 
           label='Username'
           placeholder='username...'
-          error={errors.username ? true : false}
+          error={errors ? true : false}
           value = {values.username}
           onChange = {onChange}
           name='username'
@@ -52,7 +52,7 @@ return (
           <Form.Input
           label='Password'
           placeholder='password...'
-          error={errors.password ? true : false}
+          error={errors ? true : false}
           value = {values.password}
           name='password'
           type='password'

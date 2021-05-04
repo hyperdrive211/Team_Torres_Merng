@@ -25,9 +25,16 @@ function MenuBar(){
     </Menu.Item>
     <Menu.Menu position='right'>
     <Menu.Item 
-      name = 'addContent'
+      name = 'viewContent'
       as={Link}
       to='/content'
+    >
+     Lessons
+    </Menu.Item>
+    <Menu.Item
+    name='addLesson'
+    as={Link}
+    to='/addContent'
     >
      Add Lesson
     </Menu.Item>
@@ -42,7 +49,7 @@ function MenuBar(){
     </Menu.Menu>
   </Menu>
    ) : 
-   (<Menu pointing secondary size="massive" color="teal">
+   (<Menu pointing secondary size="massive" color="black">
    <Menu.Item
      name="Home"
      active = {activeItem === 'Home'}

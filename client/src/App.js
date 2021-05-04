@@ -25,7 +25,7 @@ function App() {
       <Route exact path='/' component={Home}/>
       <AuthRoute exact path='/login' component={Login} /> 
       <AuthRoute exact path='/register' component={Register}/>
-      <AuthRouteUser exact path='/AddContent' component={LessonForm}/> 
+      <AuthRouteUser exact path='/addContent' component={LessonForm}/> 
       <AuthRouteUser exact path='/content' component={Content} /> 
       </Container>
     </Router>
