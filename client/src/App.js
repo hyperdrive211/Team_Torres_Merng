@@ -15,6 +15,7 @@ import Content from './pages/Content'
 import Register from './pages/Register'; 
 import MenuBar from './components/MenuBar'; 
 import LessonForm from './components/LessonForm'; 
+import Lesson from './pages/Lesson'; 
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <AuthRoute exact path='/register' component={Register}/>
       <AuthRouteUser exact path='/addContent' component={LessonForm}/> 
       <AuthRouteUser exact path='/content' component={Content} /> 
+      <AuthRouteUser exact path='/content/:lessonId' component={Lesson}/>
       </Container>
     </Router>
     </AuthProvider>

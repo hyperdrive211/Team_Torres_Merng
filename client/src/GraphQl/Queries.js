@@ -21,7 +21,20 @@ const Queries = {
       username
     }
   }
-}`
+}`, 
+   GET_LESSON_BY_ID: gql`
+   query($lessonId: ID!){
+     getLesson(lessonId: $postId){
+       id
+       lessonName
+       lessonType
+       lessonDescription
+       lessonVidLink
+       createdAt
+       createdBy
+     }
+   }
+   `
 }
 
 

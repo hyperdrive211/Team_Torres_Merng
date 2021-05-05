@@ -47,9 +47,9 @@ const Mutations = {
               lessonDescription: $lessonDescription
               lessonVidLink: $lessonVidLink
             }){
-                id
-                lessonName
-                lessonType
+                    id
+                    lessonName
+                    lessonDescription
             }
         }
         

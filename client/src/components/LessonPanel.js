@@ -1,6 +1,7 @@
 import React from 'react'; 
 import {Card, Icon, Label, Image, Button} from 'semantic-ui-react';
 import moment from 'moment'; 
+import {Link} from 'react-router-dom'; 
 
 function LessonPanel(props){
    const imageSrc = "https://www.derrydaily.net/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-14.09.25.png"
@@ -22,7 +23,7 @@ function LessonPanel(props){
    }
 
     return(
-        <Card>
+        <Card as={Link} to="">
             <Image src={imageSrc} />
             <Card.Content>
                 <Card.Header>
