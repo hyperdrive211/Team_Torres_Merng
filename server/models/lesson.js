@@ -4,10 +4,7 @@ const lessonSchema = new Schema({
     lessonName: String, 
     lessonType: String, 
     lessonVidLink: String, 
-    createdBy: {
-        type: Schema.Types.ObjectId, 
-        ref: 'users'
-    },
+    createdBy: String,
     createdAt: String, 
     lessonDescription: String, 
     comments: [

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'; 
+import React, {useContext, useState} from 'react'; 
 import {useMutation} from '@apollo/client'; 
 import {Form, Button, Dropdown} from 'semantic-ui-react'; 
 import {AuthContext} from '../context/auth';
@@ -6,9 +6,9 @@ import Mutations from '../GraphQl/Mutations';
 
 import {useForm} from '../util/hooks'; 
 
-function LessonForm(){
+function LessonForm(props){
     const user = useContext(AuthContext); 
-
+    const [errors, setErrors] = useState({}); 
     const {onSubmit, onChange, values} = useForm(addNewLesson, {
         lessonName: '',
         lessonType: '', 
@@ -18,15 +18,18 @@ function LessonForm(){
 
     const [addLesson, {loading}] = useMutation(Mutations.ADD_LESSON, {
         update(_, __){
+            console.log(__); 
             props.history.push('/content'); 
         },
         onError(err){
+            console.log(Mutations.ADD_LESSON);
+            console.log(err); 
             console.log(err.graphQLErrors[0].extensions.exception.errors);
             setErrors(err.graphQLErrors[0].extensions.exception.errors);
         }, 
         variables:{
               lessonName: values.lessonName, 
-              lessonType: lessonType, 
+              lessonType: values.lessonType, 
               lessonDescription: values.lessonDescription, 
               lessonVidLink: values.lessonVidLink
         }
@@ -46,7 +49,6 @@ function LessonForm(){
         
     function somethingHappen(e){
         values.lessonType = e.target.innerText; 
-        console.log(values.lessonType); 
     }
     return (
         <div className='form-container'>
@@ -61,7 +63,7 @@ function LessonForm(){
               value = {values.lessonName}
               >
               </Form.Input>
-              <Dropdown
+              <Form.Dropdown
               label='Lesson Type'
               placeholder='Lesson type...'
               fluid
@@ -70,7 +72,7 @@ function LessonForm(){
               id='lessonType'
               onChange={somethingHappen}
               >
-              </Dropdown>
+              </Form.Dropdown>
               <Form.TextArea
               label='Lesson Description'
               placeholder = 'Lesson description'

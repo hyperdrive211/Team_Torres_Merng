@@ -34,15 +34,25 @@ const Mutations = {
             }
             `,  
     ADD_LESSON: gql`
-        mutation createLesson($lessonName: String! $lessonType: String! $lessonDescription: String! $lessonVidLink: String!){
-            createLesson(lessonName: $lessonName lessonType: $lessonType lessonDescription: $lessonDescription lessonVidLink: $lessonVidLink){
+        mutation CreateLesson(
+            $lessonName: String!
+            $lessonType: String!
+            $lessonDescription: String!
+            $lessonVidLink: String!
+
+        ){
+            createLesson(newLesson: {
+              lessonName: $lessonName
+              lessonType: $lessonType
+              lessonDescription: $lessonDescription
+              lessonVidLink: $lessonVidLink
+            }){
                 id
-                username
                 lessonName
-                lessonDescription
-                lessonVidLink
+                lessonType
             }
         }
+        
     `, 
 }
 

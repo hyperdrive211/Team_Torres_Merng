@@ -1,6 +1,7 @@
 const Lesson  = require('../../models/Lesson'); 
 const checkAuth = require('../../Util/auth');
 const {UserInputError} = require('apollo-server');  
+const {validateNewLesson} = require('../../Util/validators'); 
 
 module.exports = {
     Query: {
@@ -26,8 +27,18 @@ module.exports = {
     }
     },
     Mutation: {
-        createLesson: async (_, {lessonName, lessonType, lessonDescription, lessonVidLink}, context) => {
+        createLesson: async (_, {
+            newLesson: {
+                lessonName, lessonType, lessonDescription, lessonVidLink}}, context) => {
             const user = checkAuth(context); 
+            console.log(lessonName + " "+ lessonType +" " +lessonDescription +" " + lessonVidLink); 
+            const {valid, errors} = validateNewLesson(lessonName, lessonType, lessonDescription, lessonVidLink); 
+
+            if(!valid){
+                throw new Error('User Errors', {errors}); 
+            }
+
+            
             const newLesson = new Lesson({
                 lessonName, 
                 lessonType, 

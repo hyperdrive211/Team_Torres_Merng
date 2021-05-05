@@ -42,3 +42,25 @@ module.exports.validateUserLogin = (username, password) => {
         errors, 
     }
 }
+
+module.exports.validateNewLesson = (lessonName, lessonType, lessonDescription, lessonVidLink) => {
+     const errors = {};
+     if(lessonName.trim() === ''){
+         errors.lessonName = 'Lesson Name must not be empty'; 
+     }
+     if(lessonType.trim() === ''){
+         errors.lessonType = 'Lesson Type must be selected'; 
+     }
+     if(lessonDescription.trim() === ''){
+         errors.lessonDescription = 'Lesson Description must not be empty'; 
+     }  
+     if(lessonVidLink.trim() === ''){
+         errors.lessonVidLink = 'Lesson Vid Link must not be empty'; 
+     }
+
+     return {
+         valid: Object.keys(errors).length < 1,
+         errors
+     }
+
+}

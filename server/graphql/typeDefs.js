@@ -50,6 +50,12 @@ input RegisterUser {
     email:String!
     userType: String
 }
+input CreateLesson {
+    lessonName: String!
+    lessonType: String!
+    lessonDescription: String!
+    lessonVidLink: String
+}
 type Query{
     getLessons: [Lesson]
     getLesson(id: String!): Lesson!
@@ -57,7 +63,7 @@ type Query{
 type Mutation{
     register(registerUser: RegisterUser): User!
     login(username: String!, password: String!):User!
-    createLesson(lessonName: String!, lessonType:String!, lessonDescription:String!, lessonVidLink:String!):Lesson!
+    createLesson(newLesson: CreateLesson):Lesson!
     deleteLesson(lessonId: String): String!
     createComment(lessonId: String! content:String!):Lesson!
     deleteComment(lessonId: String! commentId: String!):Lesson!
