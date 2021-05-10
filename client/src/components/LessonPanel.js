@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 function LessonPanel(props){
    const imageSrc = "https://www.derrydaily.net/wp-content/uploads/2018/12/Screenshot-2018-12-07-at-14.09.25.png"
    const {
+       id,
        lessonName, 
        lessonDescription, 
        lessonVidLink, 
@@ -18,12 +19,14 @@ function LessonPanel(props){
        createdAt
    } = props.lesson; 
 
+
+   const locationString = `/content/:${id}`; 
    const likeLesson = () => {
        console.log('Lesson has been liked'); 
    }
 
     return(
-        <Card as={Link} to="">
+        <Card as={Link} href='#' to={locationString}>
             <Image src={imageSrc} />
             <Card.Content>
                 <Card.Header>
