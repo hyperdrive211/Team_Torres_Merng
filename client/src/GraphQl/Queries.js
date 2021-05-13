@@ -33,6 +33,18 @@ const Queries = {
     createdAt
   }
    }
+   `, 
+   GET_LESSON_BY_TYPE: gql`
+      query($type: String!){
+        getLessonByType(type: $type){
+          id
+          lessonName
+          lessonVidLink
+          lessonDescription
+          createdBy
+          createdAt
+        }
+      }
    `
 }
 
