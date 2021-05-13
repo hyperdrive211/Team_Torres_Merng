@@ -21,8 +21,6 @@ const [loginUser, {loading}] = useMutation(Mutations.LOGIN, {
         props.history.push('/'); 
     },
     onError(err){
-        console.log(err);
-        console.log(err.graphQLErrors[0].extensions.exception.errors); 
         setErrors(err.graphQLErrors[0].extensions.exception.errors); 
     }, 
     variables: {

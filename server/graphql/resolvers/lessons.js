@@ -16,7 +16,7 @@ module.exports = {
     getLesson: async (_, {id}) => {
         try {
             const lesson = await Lesson.findById(id); 
-            if(lesson){
+            if(lesson){ 
                 return lesson; 
             } else {
                 throw new Error('Lesson not found'); 
@@ -37,7 +37,7 @@ module.exports = {
             if(!valid){
                 throw new Error('User Errors', {errors}); 
             }
-            
+
             const newLesson = new Lesson({
                 lessonName, 
                 lessonType, 

@@ -1,5 +1,5 @@
 import React,  {useState, useContext} from 'react'; 
-import {Menu} from 'semantic-ui-react'; 
+import {Menu, Dropdown, Icon} from 'semantic-ui-react'; 
 import {Link} from 'react-router-dom'; 
 import {AuthContext} from '../context/auth';
 
@@ -13,7 +13,7 @@ function MenuBar(){
    const handleItemClick = (e, {name}) => setActiveItem(name);  
     
    const menuBar = user ? (
-    <Menu pointing secondary size="massive" color="black">
+    <Menu  size="massive" inverted>
     <Menu.Item
       name={user.username}
       active
@@ -24,20 +24,14 @@ function MenuBar(){
         {user.username}
     </Menu.Item>
     <Menu.Menu position='right'>
-    <Menu.Item 
-      name = 'viewContent'
-      as={Link}
-      to='/content'
-    >
-     Lessons
-    </Menu.Item>
-    <Menu.Item
-    name='addLesson'
-    as={Link}
-    to='/addContent'
-    >
-     Add Lesson
-    </Menu.Item>
+     <Dropdown item text='Content'>
+      <Dropdown.Menu>
+        <Dropdown.Item as={Link} name='content' to='/content' icon='eye' text='View Content'></Dropdown.Item>
+        
+        <Dropdown.Item as={Link} name='addcontent' to='/addcontent' icon='add' text='Add Content'></Dropdown.Item>
+        <Dropdown.Item as={Link} name='reviewcontent' to='' icon='edit' text="Review Content"></Dropdown.Item>
+      </Dropdown.Menu>
+     </Dropdown>
     <Menu.Item
       name='logout'
       onClick={logout}
@@ -49,7 +43,7 @@ function MenuBar(){
     </Menu.Menu>
   </Menu>
    ) : 
-   (<Menu pointing secondary size="massive" color="black">
+   (<Menu  size="massive" inverted>
    <Menu.Item
      name="Home"
      active = {activeItem === 'Home'}

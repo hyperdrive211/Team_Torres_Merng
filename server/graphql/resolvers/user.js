@@ -27,22 +27,17 @@ module.exports = {
            const user = await User.findOne({username}); 
 
            if(!user){
-               errors.general = 'User not found'; 
-               console.log(errors); 
+               errors.general = 'User not found';  
                throw new UserInputError('User not found', {errors}); 
                
            }
            const match = await bcrypt.compare(password, user.password); 
-           console.log(match); 
            if(!match){
                errors.general = "Wrong credentials"; 
-               console.log(errors); 
                throw new UserInputError("Wrong credentials", {errors}); 
            }
         
            const token = generateToken(user); 
-           console.log(token); 
-
            return {
                ...user._doc, 
                id: user._id,

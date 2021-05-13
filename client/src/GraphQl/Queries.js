@@ -23,16 +23,15 @@ const Queries = {
   }
 }`, 
    GET_LESSON_BY_ID: gql`
-   query($lessonId: ID!){
-     getLesson(lessonId: $postId){
-       id
-       lessonName
-       lessonType
-       lessonDescription
-       lessonVidLink
-       createdAt
-       createdBy
-     }
+   query($id: String!){
+    getLesson(id: $id){
+    id
+    lessonName
+    lessonVidLink
+    lessonDescription
+    createdBy
+    createdAt
+  }
    }
    `
 }

@@ -1,28 +1,57 @@
 import React, {useContext} from 'react'; 
 import Queries from '../GraphQl/Queries'; 
 import {useQuery} from '@apollo/client'; 
-import AuthContext from '../context/auth'; 
-import {Grid} from 'semantic-ui-react'; 
+import {AuthContext} from '../context/auth'; 
+import {Grid, Button} from 'semantic-ui-react'; 
 import YouTubeEmbed from '../components/YouTubeEmbed'; 
+import moment from 'moment'; 
  
 
 const Lesson = (props) => {
     const lessonId = props.match.params.lessonId; 
-    const {data: {getLesson}} = useQuery(Queries.GET_LESSON_BY_ID, {
+    console.log(lessonId);
+    const {data} = useQuery(Queries.GET_LESSON_BY_ID, {
         variables: {
-            lessonId
+            id: lessonId
         }
     }); 
+    
+    const {user} = useContext(AuthContext); 
 
     let lessonMarkUp; 
+    let lessonData = {}; 
 
-    if(!lessonMarkUp){
-        lessonMarkUp = <h5>Getting Lesson Data...</h5>; 
+     if(!data){
+        lessonMarkUp = (<h5>Getting Lesson Data...</h5>); 
     } else {
-        <Grid></Grid>>
+        lessonData.lessonName = data.getLesson.lessonName; 
+        lessonData.lessonVidLink = data.getLesson.lessonVidLink; 
+
+        lessonMarkUp = 
+       (<Grid>
+            <Grid.Row>
+                <YouTubeEmbed props={lessonData} /> 
+            </Grid.Row>
+            <Grid.Row>
+              <h3>
+                  {data.getLesson.lessonName}
+              </h3>
+            </Grid.Row>
+            <Grid.Row>
+                <Grid.Column width={6}>
+                  
+                </Grid.Column>
+                <Grid.Column width={6}>
+                    <span>Uploaded</span>
+                </Grid.Column>
+                <Grid.Column width={4}>  
+                
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
+    )
     }
-    console.log(lessonId)
-    return (<div>Lesson Content would be expected to go here </div>); 
+    return lessonMarkUp
 }
 
 export default Lesson; 
