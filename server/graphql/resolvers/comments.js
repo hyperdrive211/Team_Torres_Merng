@@ -6,7 +6,6 @@ module.exports = {
     Mutation: {
         createComment : async (_, {lessonId, content}, context) => {
             const {username} = checkAuth(context); 
-            console.log(username);
             if(content.trim() === ''){
                 throw new UserInputError("Empty Comment", {errors: {
                     body: 'Body must not be empty'
@@ -14,7 +13,6 @@ module.exports = {
             })
             }
             const lesson = await Lesson.findById(lessonId); 
-            console.log(content);
             if(lesson){
                 lesson.comments.unshift({
                     content: content,

@@ -57,7 +57,11 @@ module.exports.validateNewLesson = (lessonName, lessonType, lessonDescription, l
      if(lessonVidLink.trim() === ''){
          errors.lessonVidLink = 'Lesson Vid Link must not be empty'; 
      }
-
+     if(!lessonVidLink.trim().includes("embed")){
+         errors.lessonVidLink = 'Lesson Vid Link must be an embed link, '
+     }
+     
+     
      return {
          valid: Object.keys(errors).length < 1,
          errors

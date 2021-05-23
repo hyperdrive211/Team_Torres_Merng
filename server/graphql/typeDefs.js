@@ -64,7 +64,7 @@ type Mutation{
     register(registerUser: RegisterUser): User!
     login(username: String!, password: String!):User!
     createLesson(newLesson: CreateLesson):Lesson!
-    deleteLesson(lessonId: String): String!
+    deleteLesson(lessonId: String): [Lesson]
     createComment(lessonId: String! content:String!):Lesson!
     deleteComment(lessonId: String! commentId: String!):Lesson!
     likeLesson(lessonId:ID!): Lesson! 

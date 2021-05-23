@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import Queries from '../GraphQl/Queries'; 
 import {useQuery} from '@apollo/client'; 
 import {AuthContext} from '../context/auth'; 
-import {Grid, Button} from 'semantic-ui-react'; 
+import {Grid, Button, Container, Card} from 'semantic-ui-react'; 
 import YouTubeEmbed from '../components/YouTubeEmbed'; 
 import moment from 'moment'; 
  
@@ -17,41 +17,35 @@ const Lesson = (props) => {
     }); 
     
     const {user} = useContext(AuthContext); 
-
-    let lessonMarkUp; 
     let lessonData = {}; 
 
-     if(!data){
-        lessonMarkUp = (<h5>Getting Lesson Data...</h5>); 
-    } else {
-        lessonData.lessonName = data.getLesson.lessonName; 
-        lessonData.lessonVidLink = data.getLesson.lessonVidLink; 
-
-        lessonMarkUp = 
-       (<Grid>
-            <Grid.Row>
-                <YouTubeEmbed props={lessonData} /> 
-            </Grid.Row>
-            <Grid.Row>
-              <h3>
-                  {data.getLesson.lessonName}
-              </h3>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={6}>
-                  
-                </Grid.Column>
-                <Grid.Column width={6}>
-                    <span>Uploaded</span>
-                </Grid.Column>
-                <Grid.Column width={4}>  
-                
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-    )
+     if(data){
+         console.log(data.getLesson); 
+        const {lessonName, lessonVidLink, lessonDescription, lessonType} = data.getLesson; 
+        console.log(lessonType); 
+        lessonData.lessonName = lessonName; 
+        lessonData.lessonVidLink = lessonVidLink; 
     }
-    return lessonMarkUp
+
+    const lessonMarkup = data ? (
+        <Container>
+            <div className="lessonCard">
+                <h3>{data.getLesson.lessonName}</h3>
+                <h5>{data.getLesson.lessonType}</h5>
+                <YouTubeEmbed lessonData= {lessonData} />
+                <h4>Lesson Description</h4>
+                <p>
+                    {data.getLesson.lessonDescription}
+                </p>
+            </div>
+        </Container>
+    ) : (
+        <Container>
+        <h1>Content Loading</h1>
+        </Container>
+    ); 
+    return  lessonMarkup; 
+       
 }
 
 export default Lesson; 

@@ -31,11 +31,10 @@ module.exports = {
             newLesson: {
                 lessonName, lessonType, lessonDescription, lessonVidLink}}, context) => {
             const user = checkAuth(context); 
-            console.log(lessonName + " "+ lessonType +" " +lessonDescription +" " + lessonVidLink); 
             const {valid, errors} = validateNewLesson(lessonName, lessonType, lessonDescription, lessonVidLink); 
-
+           
             if(!valid){
-                throw new Error('User Errors', {errors}); 
+                throw new UserInputError('User Errors', {errors}); 
             }
 
             const newLesson = new Lesson({
@@ -46,7 +45,6 @@ module.exports = {
                 createdBy: user.username, 
                 createdAt: new Date().toISOString()
             }); 
-
             const lesson = await newLesson.save(); 
             context.pubsub.publish("NEW_LESSON", {
                 lesson: lesson
@@ -70,6 +68,16 @@ module.exports = {
                 await lesson.save(); 
                 return lesson; 
             } else throw new UserInputError("Lesson not found")
+        }, 
+        deleteLesson : async(_, {lessonId}, context) => {
+             await Lesson.findByIdAndDelete(lessonId, (err, docs) => {
+                   if(!docs){
+                      throw new UserInputError("Lesson does not exist"); 
+                   }
+                   if(err){
+                    throw new Error("Oops, something has gone wrong here...."); 
+                   }
+             }); 
         }
     }, 
     Subscription : {

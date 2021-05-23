@@ -29,6 +29,7 @@ const Queries = {
     lessonName
     lessonVidLink
     lessonDescription
+    lessonType
     createdBy
     createdAt
   }
@@ -45,7 +46,19 @@ const Queries = {
           createdAt
         }
       }
-   `
+   `, 
+   GET_LESSON_BY_TUTOR: gql`
+      query($tutor: String!){
+        getLessonByTutor(tutor: $tutor){
+          id
+          lessonName
+          lessonVidLink
+          lessonDescription
+          createdBy
+          createdAt
+        }
+      }
+   `, 
 }
 
 

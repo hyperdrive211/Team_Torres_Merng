@@ -51,8 +51,7 @@ const Mutations = {
                     lessonName
                     lessonDescription
             }
-        }
-        
+        } 
     `, 
 }
 

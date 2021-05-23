@@ -22,10 +22,9 @@ function LessonForm(props){
             props.history.push('/content'); 
         },
         onError(err){
-            console.log(Mutations.ADD_LESSON);
-            console.log(err); 
-            console.log(err.graphQLErrors[0].extensions.exception.errors);
-            setErrors(err.graphQLErrors[0].extensions.exception.errors);
+            setErrors(err.graphQLErrors[0].extensions.exception.errors); 
+            console.log("Errors: " + errors); 
+            
         }, 
         variables:{
               lessonName: values.lessonName, 
@@ -94,6 +93,15 @@ function LessonForm(props){
               </Button>
           </Form.Field>
       </Form>
+      {Object.keys(errors).length > 0 && (
+            <div className='ui error message'>
+                <ul className='list'>
+                  {Object.values(errors).map((value) => (
+                      <li key={value}>{value}</li>
+                  ))}  
+                </ul>
+            </div>
+         )}
       </div>
     ); 
 }
